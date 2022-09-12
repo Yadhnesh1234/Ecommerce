@@ -2,15 +2,19 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { ProdContext} from "../context/CartProd"
 import { WishContext } from '../context/WishProd';
-import { useContext } from 'react';
+import { useContext} from 'react';
 import {Link} from 'react-router-dom'
 import Rating from '@mui/material/Rating';
+import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
+import {ItemContext} from '../context/ItemsProd'
 const CardDisplay=(props)=>{
+  const AllProduct=useContext(ItemContext)
   const cartProdObj=useContext(ProdContext)
   const wishProdObj=useContext(WishContext)
   return(
     <>
   <div className="card" style={{color:"black",border:"2px solid blue",height:"26rem",width: "18rem",margin:"6px"}}>
+  <IndeterminateCheckBoxIcon  onClick={()=>{AllProduct.deleteItemInProd(props.index)}} style={{color:"grey",cursor:"pointer"}} />
   <Link to={`/detail/${props.index}`} style={{textDecoration:"none"}}>
   <img src={props.product.image} style={{height:"20vh"}} className="card-img-top" alt="..."/>
   </Link>

@@ -13,6 +13,7 @@ const obj=useContext(ProdContext)
         <CardDisplay 
         product={val}
         key={index}
+        index={index}
         option="cart"
         />
         </>

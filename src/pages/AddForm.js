@@ -1,32 +1,32 @@
-import { useState } from 'react'
+import { useState,useContext } from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import {ItemContext} from '../context/ItemsProd'
 export default function AddForm(props) {
   const [enteredImage, setEnteredImage] = useState("");
+  const obj=useContext(ItemContext)
   const [form, setForm] = useState({
     title: "",
     desc: "",
     size: "",
-    price: ""
+    price: "",
+    cat:"",
+    count:""
   })
 const handleSubmit=(e)=>{
   e.preventDefault()
-  console.log(form)
-  fetch('https://fakestoreapi.com/products',{
-            method:"POST",
-            body:JSON.stringify(
-                {
-                    title: form.title,
-                    price: form.price,
-                    description: form.desc,
-                    image: enteredImage,
-                    category: "Fasion"
-                }
-            )
-        })
-        .then(res=>res.json())
-        .then(json=>console.log(json))
+  obj.setItemsData(
+    {
+     title: form.title,
+     price: form.price,
+     description: form.desc,
+     image: enteredImage,
+     category:form.cat,
+     rating:{rate:0,count:form.count}
+    }
+  )
+  alert("New Item is Added !!! ")
 }
 const handleChange = (event) => {
   if (event.target.name === "img") {
@@ -42,7 +42,7 @@ const handleChange = (event) => {
     setForm((prev)=>{
       return {
       ...prev,
-      [event.target.name] : [event.target.value]
+      [event.target.name] : event.target.value
       }
       })
   }    
@@ -58,7 +58,7 @@ const handleChange = (event) => {
         display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column",overflow:"auto"
       }}
     >
-<form onSubmit={handleSubmit} style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column",marginTop:"200px"}}>
+<form onSubmit={handleSubmit} style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column",marginTop:"400px"}}>
 <h1><b style={{textDecoration:"underline"}}>Add Custom Item</b></h1>
 <div>
 <Box
@@ -116,6 +116,24 @@ const handleChange = (event) => {
   onChange={handleChange}
   value={form.price}
   name="price"
+/>
+</div>
+<div style={{marginTop:"8px"}}>
+<TextField
+  id="outlined-name"
+  label="Category"
+  onChange={handleChange}
+  value={form.cat}
+  name="cat"
+/>
+</div>
+<div style={{marginTop:"8px"}}>
+<TextField
+  id="outlined-name"
+  label="Count"
+  onChange={handleChange}
+  value={form.count}
+  name="count"
 />
 </div>
 <div style={{marginTop:"8px"}}>

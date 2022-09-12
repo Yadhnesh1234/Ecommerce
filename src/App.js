@@ -17,7 +17,7 @@ import ItemDetail from './pages/ItemDetail'
 //context
 import { ProdContextProvider } from './context/CartProd'
 import {WishContextProvider} from './context/WishProd'
-
+import {ItemContextProvider }  from './context/ItemsProd'
 function ErrorHandler({error}) {
   return (
     <div role="alert">
@@ -43,6 +43,7 @@ return(
 <ErrorBoundary FallbackComponent={ErrorHandler}>
 <ProdContextProvider>
 <WishContextProvider>
+<ItemContextProvider>
 <Navbar loginStatus={login} profile={profile} />
 <Switch>
 <Route path="/" exact>
@@ -77,6 +78,7 @@ return(
 login===true?
 <BottomNav lenOfItem={lenOfItem}/>:""
 }
+</ItemContextProvider>
 </WishContextProvider>
 </ProdContextProvider>
 </ErrorBoundary>

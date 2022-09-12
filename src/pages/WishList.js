@@ -13,6 +13,7 @@ const WishList=()=>{
         <CardDisplay 
         product={val}
         key={index}
+        index={index}
         option="wish"
         />
         </>
